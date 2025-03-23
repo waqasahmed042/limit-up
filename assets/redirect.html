@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://www.gstatic.com/firebasejs/6.1.0/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.1.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.1.0/firebase-auth.js"></script>
+    <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+    <title>Sign in with Google</title>
+</head>
+
+<body>
+    <h2>Signing in with Google...</h2>
+
+    <script>
+        // Ensure Office.js is fully loaded before running any Office API
+        Office.onReady().then(() => {
+            console.log("✅ Office.js is ready");
+
+            // Initialize Firebase
+            const firebaseConfig = {
+                apiKey: "AIzaSyAU3XKuGpX4IZqG0gilydoBuex4ikaV_W0",
+                authDomain: "limitup-f86b3.firebaseapp.com",
+                projectId: "limitup-f86b3",
+                storageBucket: "limitup-f86b3.firebasestorage.app",
+                messagingSenderId: "554757603591",
+                appId: "1:554757603591:web:00728e0f1951a4e014c5a2",
+                measurementId: "G-CEJJ8PFKEB"
+            };
+
+            // Ensure Firebase is properly initialized before using auth
+            if (!firebase.apps.length) {
+                firebase.initializeApp(firebaseConfig);
+                console.log("✅ Firebase initialized successfully");
+            }
+
+            // Get Firebase Auth instance
+            const auth = firebase.auth();
+            const provider = new firebase.auth.GoogleAuthProvider();
+
+            // Sign in with Google
+            auth.signInWithPopup(provider)
+                .then((result) => {
+                    const user = result.user;
+                    console.log("✅ Login Successful:", user);
+
+                    // Send user info back to Office add-in
+                    Office.context.ui.messageParent(JSON.stringify({ success: true, user: user }));
+                })
+                .catch((error) => {
+                    console.error("❌ Login Failed:", error.message);
+
+                    // Send error back to Office add-in
+                    Office.context.ui.messageParent(JSON.stringify({ success: false, error: error.message }));
+                });
+        }).catch((err) => {
+            console.error("❌ Office.js failed to load:", err);
+        });
+    </script>
+</body>
+
+</html>
