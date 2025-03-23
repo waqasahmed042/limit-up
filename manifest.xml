@@ -10,7 +10,7 @@
   <HighResolutionIconUrl DefaultValue="https://waqasahmed042.github.io/limit-up/assets/icon-64.png"/>
   <SupportUrl DefaultValue="https://www.contoso.com/help"/>
   <AppDomains>
-    <AppDomain>https://www.contoso.com</AppDomain>
+    <AppDomain> https://waqasahmed042.github.io/limit-up/</AppDomain>
     <AppDomain>https://accounts.google.com</AppDomain>
   </AppDomains>
   <Hosts>
